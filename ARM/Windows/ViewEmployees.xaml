@@ -1,0 +1,53 @@
+﻿<Window x:Class="ARM.Windows.ViewEmployees"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ARM.Windows"
+        mc:Ignorable="d"
+        Title="Окно вывода информации о сотрудниках" Height="450" Width="500" WindowStartupLocation="CenterScreen">
+    <Grid Background="#308EA3">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Label Name="TitleLavel" Content="Просмотр сотрудников" FontSize="24" Grid.ColumnSpan="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <DataGrid Margin="5" Name="MainDatagrid" Grid.Row="1" Grid.ColumnSpan="3" CanUserAddRows="False" SelectionMode="Single" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Workers}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Имя" Binding="{Binding FirstName}"/>
+                <DataGridTextColumn Header="Фамилия" Binding="{Binding LastName}"/>
+                <DataGridTextColumn Header="Отдел" Binding="{Binding Division.Title}"/>
+                <DataGridTextColumn Header="Возраст" Binding="{Binding Age}"/>
+                <DataGridTextColumn Header="Телефон" Binding="{Binding Phone}"/>
+                <DataGridTextColumn Header="Почта" Binding="{Binding Email}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Grid.ColumnSpan="3">
+            <TextBox Name="SelectTextBox" Width="100" Height="30" Margin="5,0,0,0" TextChanged="SelectTextBox_TextChanged"/>
+            <RadioButton Name="AZRadiobutton" Content="А-Я" VerticalAlignment="Center" Margin="5,0,0,0" GroupName="Filtration" IsChecked="True" Checked="AZRadiobutton_Checked"/>
+            <RadioButton Name="ZARadiobutton" Content="Я-А" VerticalAlignment="Center" Margin="5,0,0,0"  GroupName="Filtration" Checked="ZARadiobutton_Checked"/>
+            <ComboBox Name="DivisionComboBox" ItemsSource="{Binding DivisionList}" Width="100" Margin="5,0,0,0" SelectedIndex="0" SelectionChanged="DivisionComboBox_SelectionChanged"/>
+        </StackPanel>
+        <Button Name="AddButton" Grid.Row="2" Height="50" Width="100" Click="AddButton_Click">
+            <Button.Content>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Добавить</TextBlock>
+            </Button.Content>
+        </Button>
+        <Button Name="EditButton" Grid.Row="2" Grid.Column="1" Height="50" Width="100" Click="EditButton_Click">
+            <Button.Content>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Изменить</TextBlock>
+            </Button.Content>
+        </Button>
+        <Button Name="DeleteButton" Grid.Row="2" Grid.Column="2" Height="50" Width="100" Click="DeleteButton_Click">
+            <Button.Content>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">Удалить</TextBlock>
+            </Button.Content>
+        </Button>
+    </Grid>
+</Window>
